@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Document</title>
+</head>
+
+<body>
+   <script type="text/javascript">
+      /*
+         reduce() 方法接收一个函数作为累加器（accumulator），数组中的每个值（从左到右）开始合并，最终为一个值
+
+         语法
+            array.reduce(function(previousValue,currentValue,index,array){
+               //return...
+            }, initialValue)
+
+         参数
+            callback(必须)
+               执行数组中每个值的函数，包含四个参数
+               callback中的四个参数
+                  previousValue
+                     上一次调用回调返回的值，或者是提供的初始值（initialValue）
+                  currentValue
+                     数组中当前被处理的元素
+                  index
+                     当前元素在数组中的索引
+                  array
+                     调用 reduce 的数组
+            initialValue(可选)
+               作为第一次调用 callback 的第一个参数。
+
+         描述
+            reduce 为数组中的每一个元素依次执行回调函数，不包括数组中被删除或从未被赋值的元素，接受四个参数：初始值（或者上一次回调函数的返回值），当前元素值，当前索引，调用 reduce 的数组。
+
+            回调函数第一次执行时，previousValue 和 currentValue 可以是一个值，如果 initialValue 在调用 reduce 时被提供，那么第一个 previousValue 等于 initialValue ，并且currentValue 等于数组中的第一个值；如果initialValue 未被提供，那么previousValue 等于数组中的第一个值，currentValue等于数组中的第二个值。
+
+            如果数组为空并且没有提供initialValue， 会抛出TypeError 。如果数组仅有一个元素（无论位置如何）并且没有提供initialValue， 或者有提供initialValue但是数组为空，那么此唯一值将被返回并且callback不会被执行。
+      */
+
+      // 不传入初始值的情况
+      let arr = [0, 1, 2, 3, 4];
+      let count = arr.reduce((previousValue, currentValue, index, array) => {
+         console.log(previousValue, currentValue, index, array);
+         return previousValue + currentValue;
+      })
+      console.log(count);//reduce 的返回值是回调函数最后一次被调用的返回值（10）
+      /*
+         过程：
+            0,1,1,[0, 1, 2, 3, 4]
+            1,2,2,[0, 1, 2, 3, 4]
+            3,3,3,[0, 1, 2, 3, 4]
+            6,4,4,[0, 1, 2, 3, 4]
+      */
+
+      // 传入初始值的情况
+      let arr1 = [0, 1, 2, 3, 4];
+      let count1 = arr1.reduce((previousValue, currentValue, index, array) => {
+         console.log(previousValue, currentValue, index, array);
+         return previousValue + currentValue;
+      },10)
+      console.log(count1);//reduce 的返回值是回调函数最后一次被调用的返回值（20）
+      /*
+         过程：
+            10,0,0,[0, 1, 2, 3, 4]
+            10,1,1,[0, 1, 2, 3, 4]
+            11,2,2,[0, 1, 2, 3, 4]
+            13,3,3,[0, 1, 2, 3, 4]
+            16,4,4,[0, 1, 2, 3, 4]
+      */
+
+      /* 例子 */
+
+      //将数组所有项相加
+         let arr2 = [0,1,2,3];
+         let total = arr2.reduce((a,b) => {
+            return a + b;
+         })
+         console.log(total);
+
+      //四舍五入后计算数组元素的总和
+         let arr3 = [15.5, 2.3, 1.1, 4.7];
+         let Total = arr3.reduce((a,b) => {
+            return Math.round(a) + Math.round(b)
+         });
+         console.log(Total);
+
+      //数组扁平化
+         let arr4 = [[0,1],[2,3],[4,5]];
+         let newArr4 = arr4.reduce((a,b) => {
+            return a.concat(b);
+         });
+         console.log(newArr4);
+
+      //用reduce实现去重和统计出现次数
+         let arr5 = [0,0,3,4,4,2,1,1,1,5,1,1,1,1,1];
+         let obj = arr5.reduce((prev,cur) => {
+            cur in prev ? prev[cur] += 1 : prev[cur] = 1;
+            return prev;
+         },{});
+         console.log(obj);
+   </script>
+</body>
+
+</html>
