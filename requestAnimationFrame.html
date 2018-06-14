@@ -12,6 +12,12 @@
     <div id="demo" style="position:absolute; width:100px; height:100px; background:#ccc; left:0; top:0;"></div>
 </body>
 <script type="text/javascript">
+    /* 
+        requestAnimationFrame就是一个性能优化版、专为动画量身打造的setTimeout，
+        不同的是requestAnimationFrame不是自己指定回调函数运行的时间，而是跟着浏览器内建的刷新频率来执行回调，
+        这当然就能达到浏览器所能实现动画的最佳效果
+    */
+
     // 兼容性写法
     window.requestAnimFrame = (function () {
         return window.requestAnimationFrame ||
